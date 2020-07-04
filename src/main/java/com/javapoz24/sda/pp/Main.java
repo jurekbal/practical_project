@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
 AdviceClient adviceClient = new AdviceClient();
-Slip slip = adviceClient.fetchAdvice();
+Slip slip = adviceClient.fetchRandomAdvice();
         System.out.println(slip.getAdvice());
 
     }

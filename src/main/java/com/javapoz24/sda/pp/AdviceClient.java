@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class AdviceClient {
 
-public Slip fetchAdvice(){
+public Slip fetchRandomAdvice(){
     try {
         URL url = new URL("https://api.adviceslip.com/advice");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
