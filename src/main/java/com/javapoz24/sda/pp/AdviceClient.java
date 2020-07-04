@@ -1,5 +1,7 @@
 package com.javapoz24.sda.pp;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,9 +9,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AdviseClient {
+public class AdviceClient {
 
-public void fetchAdvice(){
+public Slip fetchAdvice(){
     try {
         URL url = new URL("https://api.adviceslip.com/advice");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -21,14 +23,20 @@ public void fetchAdvice(){
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
-        System.out.println(content.toString());
+
         in.close();
+
+        Gson gson = new Gson();
+        SlipResponse slip = gson.fromJson(content.toString(), SlipResponse.class);
+        return slip.getSlip();
+
 
     } catch (MalformedURLException e) {
         e.printStackTrace();
     } catch (IOException e) {
         e.printStackTrace();
     }
+    return null;
 }
 
 }
