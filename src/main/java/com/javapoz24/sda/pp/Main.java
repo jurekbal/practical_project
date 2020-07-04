@@ -1,10 +1,13 @@
 package com.javapoz24.sda.pp;
 
 public class Main {
+
+    private static final String URL = "https://api.adviceslip.com/";
+
     public static void main(String[] args) {
 
-AdviceClient adviceClient = new AdviceClient();
-Slip slip = adviceClient.fetchRandomAdvice();
+        HttpClient httpClient = new HttpClient();
+        Slip slip = httpClient.fetch(URL+"advice", SlipResponse.class).getSlip();
         System.out.println(slip.getAdvice());
 
     }
