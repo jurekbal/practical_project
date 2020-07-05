@@ -1,4 +1,4 @@
-package com.javapoz24.sda.pp;
+package com.javapoz24.sda.pp.http;
 
 import com.google.gson.Gson;
 

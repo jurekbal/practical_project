@@ -1,14 +1,11 @@
-package com.javapoz24.sda.pp;
+package com.javapoz24.sda.pp.model;
 
-public class Slip {
-
+// Slip Data Transfer Object
+// Obiekt pośredni - dopasowany do formatu danych JSON z Web API Slip Advice
+public class SlipDto {
     private long id;
     private String advice;
 
-    public Slip(long id, String advice) {
-        this.id = id;
-        this.advice = advice;
-    }
 
     public long getId() {
         return id;

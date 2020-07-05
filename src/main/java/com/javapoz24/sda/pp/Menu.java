@@ -1,5 +1,10 @@
 package com.javapoz24.sda.pp;
 
+import com.javapoz24.sda.pp.model.Slip;
+import com.javapoz24.sda.pp.model.SlipDto;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -35,13 +40,17 @@ public class Menu {
                     break;
                 }
                 case 1: {
+                    SlipDto randomSlip = adviceService.getRandomAdvice();
+                    adviceService.saveAdvice(randomSlip);
+                    System.out.println();
                     System.out.println("****** Cytat dla Ciebie ******");
-                    System.out.println(adviceService.getRandomAdvice().getAdvice());
+                    System.out.println(randomSlip.getAdvice());
                     System.out.println("******************************");
                     break;
                 }
                 case 2: {
-                    System.out.println("Funkcja jeszcze nie jest zaimplementowana. Sorry");
+                    List<Slip> list = adviceService.getAllAdvices();
+                    System.out.println(Arrays.toString(list.toArray()));
                     break;
                 }
                 case 3: {
