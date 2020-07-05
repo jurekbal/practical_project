@@ -31,4 +31,12 @@ public class AdviceService {
         List<Slip> list = slipDao.getAll();
         return list;
     }
+
+    public boolean deleteSlip(Long slipId) {
+        SlipDao slipDao = new SlipDao();
+        if (slipDao.deleteSlip(slipId)){
+            return true;
+        }
+        return false;
+    }
 }
