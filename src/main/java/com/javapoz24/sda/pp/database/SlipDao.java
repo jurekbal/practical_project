@@ -45,8 +45,8 @@ public class SlipDao {
             list.addAll(results);
 
         } catch (HibernateException he) {
-            System.err.println("Listing error.");
-            he.printStackTrace();
+            System.err.println("Błąd listowania");
+//            he.printStackTrace();
         }
         return list;
     }
@@ -62,8 +62,8 @@ public class SlipDao {
 
             return Optional.ofNullable(slip);
         } catch (PersistenceException he) {
-            System.err.println("Listing error.");
-            he.printStackTrace();
+            System.err.println("Błąd wyszukiwania po SlipId.");
+            //he.printStackTrace();
         }
         return Optional.empty();
     }
@@ -83,7 +83,7 @@ public class SlipDao {
                 return true;
             } catch (IllegalStateException | RollbackException ise) {
                 System.err.println("Błąd usuwania rekordu.");
-                ise.printStackTrace();
+//                ise.printStackTrace();
                 if (transaction != null) {
                     transaction.rollback();
                 }
