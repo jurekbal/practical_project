@@ -49,20 +49,46 @@ public class SlipDao {
         return list;
     }
 
-    public Optional<Slip> findById(Long id) {
+    public Optional<Slip> findById(Long slipId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Slip> query = cb.createQuery(Slip.class);
             Root<Slip> table = query.from(Slip.class);
 
-            query.select(table).where(cb.equal(table.get("id"), id));
-            Slip student = session.createQuery(query).getSingleResult();
+            query.select(table).where(cb.equal(table.get("slipId"), slipId));
+            Slip slip = session.createQuery(query).getSingleResult();
 
-            return Optional.ofNullable(student);
+            return Optional.ofNullable(slip);
         } catch (PersistenceException he) {
             System.err.println("Listing error.");
             he.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public boolean deleteSlip(Long slipId) {
+
+        Optional<Slip> optionalSlip = findById(slipId);
+        if (optionalSlip.isPresent()) {
+            Slip slip = optionalSlip.get();
+
+            Transaction transaction = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                session.delete(slip);
+                transaction.commit();
+
+                return true;
+            } catch (IllegalStateException | RollbackException ise) {
+                System.err.println("Błąd usuwania rekordu.");
+                ise.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
+        } else {
+            System.err.println("Nie udało się odnaleźć cytatu o podanym SlipId");
+        }
+        return false;
     }
 }
