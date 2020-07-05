@@ -16,11 +16,14 @@ public class AdviceService {
         return httpClient.fetch(URL + "advice", SlipResponse.class).getSlip();
     }
 
-    public void saveAdvice(SlipDto slipDto) {
+    public boolean saveAdvice(SlipDto slipDto) {
         Slip slip = new Slip(slipDto);
 
         SlipDao slipDao = new SlipDao();
-        slipDao.insertOrUpdate(slip);
+        if (slipDao.insertOrUpdate(slip)) {
+            return true;
+        }
+        return false;
     }
 
     public List<Slip> getAllAdvices() {

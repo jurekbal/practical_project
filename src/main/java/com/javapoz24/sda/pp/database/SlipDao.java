@@ -16,12 +16,13 @@ import java.util.Optional;
 
 public class SlipDao {
 
-    public void insertOrUpdate(Slip slip) {
+    public boolean insertOrUpdate(Slip slip) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.saveOrUpdate(slip);
             transaction.commit();
+            return true;
         } catch (IllegalStateException | RollbackException ise) {
             System.err.println("Błąd wstawiania rekordu.");
             ise.printStackTrace();
@@ -29,6 +30,7 @@ public class SlipDao {
                 transaction.rollback();
             }
         }
+        return false;
     }
 
     public List<Slip> getAll() {
