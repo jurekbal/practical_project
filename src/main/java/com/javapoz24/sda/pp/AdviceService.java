@@ -9,12 +9,6 @@ import com.javapoz24.sda.pp.model.SlipDto;
 import java.util.List;
 
 public class AdviceService {
-    private static final String URL = "https://api.adviceslip.com/";
-    private final HttpClient httpClient = new HttpClient();
-
-    public SlipDto getRandomAdvice(){
-        return httpClient.fetch(URL + "advice", SlipResponse.class).getSlip();
-    }
 
     public boolean saveAdvice(SlipDto slipDto) {
         Slip slip = new Slip(slipDto);
