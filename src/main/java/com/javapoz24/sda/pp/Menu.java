@@ -2,7 +2,6 @@ package com.javapoz24.sda.pp;
 
 import com.javapoz24.sda.pp.http.SearchResponse;
 import com.javapoz24.sda.pp.http.SlipNotFoundException;
-import com.javapoz24.sda.pp.http.SlipResponse;
 import com.javapoz24.sda.pp.model.Slip;
 import com.javapoz24.sda.pp.model.SlipDto;
 
@@ -14,10 +13,12 @@ public class Menu {
 
     private final AdviceService adviceService;
     private final AdviceClient adviceClient;
+    private final AdviceExporter adviceExporter;
 
-    public Menu(AdviceService adviceService, AdviceClient adviceClient) {
+    public Menu(AdviceService adviceService, AdviceClient adviceClient, AdviceExporter adviceExporter) {
         this.adviceService = adviceService;
         this.adviceClient = adviceClient;
+        this.adviceExporter = adviceExporter;
     }
 
     public void displayMenu() {
@@ -187,6 +188,8 @@ public class Menu {
             System.out.println("Wybierz opcję:");
             System.out.println("1 - wyświetl moje cytaty");
             System.out.println("2 - usuń cytat (wg SlipId)");
+            System.out.println("3 - zapisz cytaty do pliku tekstowego");
+            System.out.println("4 - zapisz cytaty do pliku xlsx");
             System.out.println("0 - wyjście");
 
             int option = -1;
@@ -219,6 +222,14 @@ public class Menu {
                     } else {
                         System.out.println("PORAŻKA -> nie udało się usunąć cytatu");
                     }
+                    break;
+                }
+                case 3: {
+                    adviceExporter.exportToTextFile(adviceService.getAllAdvices());
+                    break;
+                }
+                case 4: {
+                    adviceExporter.exportToSheet(adviceService.getAllAdvices());
                     break;
                 }
                 case -1: {

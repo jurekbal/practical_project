@@ -28,6 +28,14 @@ public class Slip {
         this.advice = slipDto.getAdvice();
     }
 
+    public long getSlipId() {
+        return slipId;
+    }
+
+    public void setSlipId(long slipId) {
+        this.slipId = slipId;
+    }
+
     public long getId() {
         return id;
     }

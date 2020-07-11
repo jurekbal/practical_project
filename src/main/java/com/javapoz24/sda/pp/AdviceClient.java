@@ -5,7 +5,7 @@ import com.javapoz24.sda.pp.http.*;
 import com.javapoz24.sda.pp.model.SlipDto;
 
 public class AdviceClient {
-    private static final String URL = "https://api.adviceslip.com/";
+    private static final String URL = PropertiesManager.getProperty("URL");
     private final HttpClient httpClient = new HttpClient();
 
     public SlipDto getRandomAdvice(){
